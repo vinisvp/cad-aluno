@@ -4,20 +4,12 @@
       <h1 class="text-center">Cadastro de Alunos</h1>
       <form [formGroup]="studentFormGroup">
         <div class="mb-3">
-          <label for="matricula" class="form-label">Matricula:</label>
-          <input type="text"
-                 class="form-control"
-                 id="matricula"
-                 formControlName="id"
-                 />
-        </div>
-        <div class="mb-3">
           <label for="nome" class="form-label">Nome:</label>
           <input type="text"
                  class="form-control"
                  id="nome"
                  formControlName="name"
-                 />
+          />
         </div>
         <div class="mb-3">
           <label for="curso" class="form-label">Curso:</label>
@@ -25,7 +17,7 @@
                  class="form-control"
                  id="curso"
                  formControlName="course"
-                 />
+          />
         </div>
         <button class="btn btn-primary" (click)="save()">Salvar</button>
       </form>
@@ -36,6 +28,7 @@
             <th scope="col">Matricula</th>
             <th scope="col">Nome</th>
             <th scope="col">Curso</th>
+            <th scope="col" class="text-center">Opções</th>
           </tr>
         </thead>
         <tbody>
@@ -43,6 +36,10 @@
             <td>{{s.id}}</td>
             <td>{{s.name}}</td>
             <td>{{s.course}}</td>
+            <td class="text-center">
+              <button type="button" class="btn btn-primary me-3" (click)="update(s)">Editar</button>
+              <button type="button" class="btn btn-danger" (click)="delete(s)">Excluir</button>
+            </td>
           </tr>
         </tbody>
       </table>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Student } from '../student';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StudentService } from '../student.service';
 
 @Component({
@@ -12,14 +12,15 @@ export class StudentsComponent implements OnInit {
   students: Student[] = [];
   studentFormGroup: FormGroup;
   isEditing: boolean = false;
+  submitted: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private service: StudentService
     ){
     this.studentFormGroup = formBuilder.group({
       id:[''],
-      name:[''],
-      course:['']
+      name:['', [Validators.minLength(3), Validators.required]],
+      course:['', [Validators.required]]
     });
   }
 
@@ -34,24 +35,30 @@ export class StudentsComponent implements OnInit {
   }
 
   save(){
-    if(!this.isEditing)
+    this.submitted = true;
+    if(this.studentFormGroup.valid)
     {
-      this.service.postStudent(this.studentFormGroup.value).subscribe({
-        next: data => {
-          this.students.push(data);
-          this.studentFormGroup.reset();
-        }
-      })
-    }
-    else
-    {
-      this.service.putStudent(this.studentFormGroup.value).subscribe({
-        next: () => {
-          this.loadStudents();
-          this.studentFormGroup.reset();
-          this.isEditing = false;
-        }
-      })
+      if(!this.isEditing)
+      {
+        this.service.postStudent(this.studentFormGroup.value).subscribe({
+          next: data => {
+            this.students.push(data);
+            this.studentFormGroup.reset();
+            this.submitted = false;
+          }
+        })
+      }
+      else
+      {
+        this.service.putStudent(this.studentFormGroup.value).subscribe({
+          next: () => {
+            this.loadStudents();
+            this.studentFormGroup.reset();
+            this.isEditing = false;
+            this.submitted = false;
+          }
+        })
+      }
     }
   }
 
@@ -64,5 +71,13 @@ export class StudentsComponent implements OnInit {
   update(student: Student){
     this.isEditing = true;
     this.studentFormGroup.setValue(student);
+  }
+
+  get name(): any {
+    return this.studentFormGroup.get('name');
+  }
+
+  get course(): any {
+    return this.studentFormGroup.get('course');
   }
 }

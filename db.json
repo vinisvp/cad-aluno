@@ -20,5 +20,11 @@
       "name": "Pietro",
       "course": "Música"
     }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "name": "ADS"
+    }
   ]
 }

@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../course';
 import { CourseService } from '../course.service';
@@ -19,7 +19,7 @@ export class CoursesComponent implements OnInit {
   ){
     this.courseFormGroup = formBuilder.group({
       id:[''],
-      name:['']
+      name:['', [Validators.required, Validators.minLength(2)]]
     });
   }
 
@@ -34,22 +34,28 @@ export class CoursesComponent implements OnInit {
   }
 
   save() {
-    if (!this.isEditing) {
-      this.service.postCourse(this.courseFormGroup.value).subscribe({
-        next: () => {
-          this.loadCourses();
-          this.courseFormGroup.reset();
-        }
-      });
-    }
-    else {
-      this.service.postCourse(this.courseFormGroup.value).subscribe({
-        next: () => {
-          this.loadCourses();
-          this.courseFormGroup.reset();
-          this.isEditing = false;
-        }
-      });
+    this.submitted = true;
+    if(this.courseFormGroup.valid)
+    {
+      if (!this.isEditing) {
+        this.service.postCourse(this.courseFormGroup.value).subscribe({
+          next: () => {
+            this.loadCourses();
+            this.courseFormGroup.reset();
+            this.submitted = false;
+          }
+        });
+      }
+      else {
+        this.service.putCourse(this.courseFormGroup.value).subscribe({
+          next: () => {
+            this.loadCourses();
+            this.courseFormGroup.reset();
+            this.isEditing = false;
+            this.submitted = false;
+          }
+        });
+      }
     }
   }
 
@@ -62,5 +68,9 @@ export class CoursesComponent implements OnInit {
     this.service.deleteCourse(course).subscribe({
       next: () => this.loadCourses()
     });
+  }
+
+  get name(): any {
+    return this.courseFormGroup.get('name');
   }
 }

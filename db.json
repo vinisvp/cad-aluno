@@ -14,17 +14,20 @@
       "id": 3,
       "name": "Ana",
       "course": "Biológia"
-    },
-    {
-      "id": 4,
-      "name": "Pietro",
-      "course": "Música"
     }
   ],
   "courses": [
     {
       "id": 1,
       "name": "ADS"
+    },
+    {
+      "id": 2,
+      "name": "Biologia"
+    },
+    {
+      "id": 3,
+      "name": "História"
     }
   ]
 }

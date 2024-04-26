@@ -1,1 +1,40 @@
-<p>courses works!</p>
+<div class="container bg-light p-4">
+  <div class="row">
+    <div class="col-7 m-auto">
+      <h1 class="text-center">Cadastro de Cursos</h1>
+      <form [formGroup]="courseFormGroup">
+        <div class="mb-3">
+          <label for="nome" class="form-label">Nome:</label>
+          <input type="text"
+                 class="form-control"
+                 id="nome"
+                 formControlName="name"
+          />
+          <small *ngIf="submitted && name.hasError('required')" class="text-danger">O nome é requirido!</small>
+          <small *ngIf="submitted && name.hasError('minlength')" class="text-danger">O nome do curso precisa ter 2 digitos ou mais!</small>
+        </div>
+        <button class="btn btn-primary" (click)="save()">Salvar</button>
+      </form>
+      <h1 class="text-center mt-3">Lista de Cursos</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col" class="text-center">Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of courses">
+            <td>{{c.id}}</td>
+            <td>{{c.name}}</td>
+            <td class="text-center">
+              <button type="button" class="btn btn-primary me-3" (click)="update(c)">Editar</button>
+              <button type="button" class="btn btn-danger" (click)="delete(c)">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

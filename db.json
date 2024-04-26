@@ -3,17 +3,22 @@
     {
       "id": 1,
       "name": "Vini",
-      "course": "DS"
+      "course": 1
     },
     {
       "id": 2,
-      "name": "Jonas",
-      "course": "ADM"
+      "name": "José",
+      "course": 2
     },
     {
       "id": 3,
       "name": "Ana",
-      "course": "Biológia"
+      "course": 3
+    },
+    {
+      "id": 4,
+      "name": "Pietro",
+      "course": 4
     }
   ],
   "courses": [
@@ -28,6 +33,10 @@
     {
       "id": 3,
       "name": "História"
+    },
+    {
+      "id": 4,
+      "name": "ADM"
     }
   ]
 }

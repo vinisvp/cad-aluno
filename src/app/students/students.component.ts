@@ -1,7 +1,9 @@
+import { CourseService } from './../course.service';
 import { Component, OnInit } from '@angular/core';
 import { Student } from '../student';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StudentService } from '../student.service';
+import { Course } from '../course';
 
 @Component({
   selector: 'app-students',
@@ -10,12 +12,14 @@ import { StudentService } from '../student.service';
 })
 export class StudentsComponent implements OnInit {
   students: Student[] = [];
+  courses: Course[] = [];
   studentFormGroup: FormGroup;
   isEditing: boolean = false;
   submitted: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
-              private service: StudentService
+              private service: StudentService,
+              private courseService: CourseService
     ){
     this.studentFormGroup = formBuilder.group({
       id:[''],
@@ -32,6 +36,9 @@ export class StudentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadStudents();
+    this.courseService.getCourses().subscribe({
+      next: data => this.courses = data
+    });
   }
 
   save(){

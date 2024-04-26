@@ -15,11 +15,9 @@
         </div>
         <div class="mb-3">
           <label for="curso" class="form-label">Curso:</label>
-          <input type="text"
-                 class="form-control"
-                 id="curso"
-                 formControlName="course"
-          />
+          <select class="form-select" id="curso" aria-label="Default select example" formControlName="course">
+            <option *ngFor="let course of courses" [ngValue]="course.id">{{course.name}}</option>
+          </select>
           <small *ngIf="submitted && course.hasError('required')" class="text-danger">O curso é requirido!</small>
         </div>
         <button class="btn btn-primary" (click)="save()">Salvar</button>
@@ -38,7 +36,7 @@
           <tr *ngFor="let s of students">
             <td>{{s.id}}</td>
             <td>{{s.name}}</td>
-            <td>{{s.course}}</td>
+            <td>{{courses[(s.course - 1)].name}}</td>
             <td class="text-center">
               <button type="button" class="btn btn-primary me-3" (click)="update(s)">Editar</button>
               <button type="button" class="btn btn-danger" (click)="delete(s)">Excluir</button>

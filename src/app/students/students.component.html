@@ -1,56 +1,84 @@
 <div class="container bg-light p-4">
-  <div class="row">
-    <div class="col-7 m-auto">
-      <h1 class="text-center">Cadastro de Alunos</h1>
-      <form [formGroup]="studentFormGroup">
-        <div class="mb-3">
-          <label for="nome" class="form-label">Nome:</label>
-          <input type="text"
-                 class="form-control"
-                 id="nome"
-                 formControlName="name"
-          />
-          <small *ngIf="submitted && name.hasError('required')" class="text-danger">O nome é requirido!</small>
-          <small *ngIf="submitted && name.hasError('minlength')" class="text-danger">O nome é precisa ter 3 digitos ou mais!</small>
-        </div>
-        <div class="mb-3">
-          <label for="curso" class="form-label">Curso:</label>
-          <select class="form-select"
-                  id="curso"
-                  aria-label="Default select example"
-                  formControlName="course"
-                  [compareWith]="compareCourses">
-            <option *ngFor="let course of courses" [ngValue]="course">{{course.name}}</option>
-          </select>
-          <small *ngIf="submitted && course.hasError('required')" class="text-danger">O curso é requirido!</small>
-        </div>
-        <button class="btn btn-primary" (click)="save()">
-          <div *ngIf="isEditing; else elseBlock">Editar</div>
-          <ng-template #elseBlock>Salvar</ng-template>
-        </button>
-      </form>
-      <h1 class="text-center mt-3">Lista de Alunos</h1>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Matricula</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Curso</th>
-            <th scope="col" class="text-center">Opções</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let s of students">
-            <td>{{s.id}}</td>
-            <td>{{s.name}}</td>
-            <td>{{s.course.name}}</td>
-            <td class="text-center">
-              <button type="button" class="btn btn-primary me-3" (click)="update(s)">Editar</button>
-              <button type="button" class="btn btn-danger" (click)="delete(s)">Excluir</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <h1 class="text-center">Cadastro de Alunos</h1>
+  <form [formGroup]="studentFormGroup">
+    <div class="mb-3">
+      <label for="nome" class="form-label">Nome:</label>
+      <input type="text"
+              class="form-control"
+              id="nome"
+              formControlName="name"
+      />
+      <small *ngIf="submitted && name.hasError('required')" class="text-danger">O nome é requirido!</small>
+      <small *ngIf="submitted && name.hasError('minlength')" class="text-danger">O nome é precisa ter 3 digitos ou mais!</small>
     </div>
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="ativo" formControlName="active" checked>
+      <label class="form-check-label" for="ativo">
+        Ativo
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="Diurno" formControlName="period" id="diurno" checked>
+      <label class="form-check-label" for="diurno">
+        Diurno
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="Vespertino" formControlName="period" id="vespertino">
+      <label class="form-check-label" for="vespertino">
+        Vespertino
+      </label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" value="Noturno" formControlName="period" id="noturno">
+      <label class="form-check-label" for="noturno">
+        Noturno
+      </label>
+    </div>
+    <small *ngIf="submitted && period.hasError('required')" class="text-danger">É necessário um periodo!</small>
+    <div class="mb-3">
+      <label for="curso" class="form-label">Curso:</label>
+      <select class="form-select"
+              id="curso"
+              aria-label="Default select example"
+              formControlName="course"
+              [compareWith]="compareCourses">
+        <option *ngFor="let course of courses" [ngValue]="course">{{course.name}}</option>
+      </select>
+      <small *ngIf="submitted && course.hasError('required')" class="text-danger">O curso é requirido!</small>
+    </div>
+    <button class="btn btn-primary" (click)="save()">
+      <div *ngIf="isEditing; else elseBlock">Editar</div>
+      <ng-template #elseBlock>Salvar</ng-template>
+    </button>
+  </form>
+  <h1 class="text-center mt-3">Lista de Alunos</h1>
+  <div class="table-responsive-sm">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Matricula</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Ativo</th>
+          <th scope="col">Periodo</th>
+          <th scope="col">Curso</th>
+          <th scope="col" class="text-center">Opções</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of students">
+          <td>{{s.id}}</td>
+          <td>{{s.name}}</td>
+          <td *ngIf="s.active; else elseBlock">SIM</td>
+          <ng-template #elseBlock><td>NÃO</td></ng-template>
+          <td>{{s.period}}</td>
+          <td>{{s.course.name}}</td>
+          <td class="text-center">
+            <button type="button" class="btn btn-primary me-3" (click)="update(s)">Editar</button>
+            <button type="button" class="btn btn-danger" (click)="delete(s)">Excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

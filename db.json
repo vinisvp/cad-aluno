@@ -3,6 +3,8 @@
     {
       "id": 1,
       "name": "Vini",
+      "active": true,
+      "period": "Diurno",
       "course": {
         "id": 1,
         "name": "ADS"
@@ -11,6 +13,8 @@
     {
       "id": 2,
       "name": "Pietro",
+      "active": false,
+      "period": "Vespertino",
       "course": {
         "id": 3,
         "name": "História"
@@ -19,6 +23,8 @@
     {
       "id": 3,
       "name": "Anna",
+      "active": true,
+      "period": "Noturno",
       "course": {
         "id": 2,
         "name": "Biologia"
@@ -27,6 +33,8 @@
     {
       "id": 4,
       "name": "Renata",
+      "active": false,
+      "period": "Diurno",
       "course": {
         "id": 4,
         "name": "ADM"

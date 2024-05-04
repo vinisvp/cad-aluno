@@ -24,6 +24,8 @@ export class StudentsComponent implements OnInit {
     this.studentFormGroup = formBuilder.group({
       id:[''],
       name:['', [Validators.minLength(3), Validators.required]],
+      active:['true'],
+      period:['', [Validators.required]],
       course:['', [Validators.required]]
     });
   }
@@ -94,5 +96,9 @@ export class StudentsComponent implements OnInit {
 
   get course(): any {
     return this.studentFormGroup.get('course');
+  }
+
+  get period(): any{
+    return this.studentFormGroup.get('period')
   }
 }

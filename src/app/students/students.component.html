@@ -15,12 +15,19 @@
         </div>
         <div class="mb-3">
           <label for="curso" class="form-label">Curso:</label>
-          <select class="form-select" id="curso" aria-label="Default select example" formControlName="course">
-            <option *ngFor="let course of courses" [ngValue]="course.id">{{course.name}}</option>
+          <select class="form-select"
+                  id="curso"
+                  aria-label="Default select example"
+                  formControlName="course"
+                  [compareWith]="compareCourses">
+            <option *ngFor="let course of courses" [ngValue]="course">{{course.name}}</option>
           </select>
           <small *ngIf="submitted && course.hasError('required')" class="text-danger">O curso é requirido!</small>
         </div>
-        <button class="btn btn-primary" (click)="save()">Salvar</button>
+        <button class="btn btn-primary" (click)="save()">
+          <div *ngIf="isEditing; else elseBlock">Editar</div>
+          <ng-template #elseBlock>Salvar</ng-template>
+        </button>
       </form>
       <h1 class="text-center mt-3">Lista de Alunos</h1>
       <table class="table table-striped">
@@ -36,7 +43,7 @@
           <tr *ngFor="let s of students">
             <td>{{s.id}}</td>
             <td>{{s.name}}</td>
-            <td>{{courses[(s.course - 1)].name}}</td>
+            <td>{{s.course.name}}</td>
             <td class="text-center">
               <button type="button" class="btn btn-primary me-3" (click)="update(s)">Editar</button>
               <button type="button" class="btn btn-danger" (click)="delete(s)">Excluir</button>

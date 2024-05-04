@@ -13,7 +13,10 @@
           <small *ngIf="submitted && name.hasError('required')" class="text-danger">O nome é requirido!</small>
           <small *ngIf="submitted && name.hasError('minlength')" class="text-danger">O nome do curso precisa ter 2 digitos ou mais!</small>
         </div>
-        <button class="btn btn-primary" (click)="save()">Salvar</button>
+        <button class="btn btn-primary" (click)="save()">
+          <div *ngIf="isEditing; else elseBlock">Editar</div>
+          <ng-template #elseBlock>Salvar</ng-template>
+        </button>
       </form>
       <h1 class="text-center mt-3">Lista de Cursos</h1>
       <table class="table table-striped">

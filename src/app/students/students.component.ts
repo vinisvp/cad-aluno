@@ -34,11 +34,19 @@ export class StudentsComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.loadStudents();
+  loadCourses(){
     this.courseService.getCourses().subscribe({
       next: data => this.courses = data
     });
+  }
+
+  ngOnInit(): void {
+    this.loadStudents();
+    this.loadCourses();
+  }
+
+  compareCourses(course1: Course, course2: Course): boolean {
+    return course1 && course2 ? course1.id === course2.id : course1 === course2;
   }
 
   save(){

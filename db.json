@@ -2,43 +2,24 @@
   "students": [
     {
       "id": 1,
-      "name": "Vini",
+      "name": "Pedro",
       "active": true,
-      "period": "Diurno",
-      "course": {
-        "id": 1,
-        "name": "ADS"
-      }
+      "period": "Vespertino",
+      "course": 1
     },
     {
       "id": 2,
-      "name": "Pietro",
-      "active": false,
-      "period": "Vespertino",
-      "course": {
-        "id": 3,
-        "name": "História"
-      }
+      "name": "Laura",
+      "active": true,
+      "period": "Noturno",
+      "course": 3
     },
     {
       "id": 3,
-      "name": "Anna",
+      "name": "Leandro",
       "active": true,
-      "period": "Noturno",
-      "course": {
-        "id": 2,
-        "name": "Biologia"
-      }
-    },
-    {
-      "id": 4,
-      "name": "Renata",
-      "active": false,
       "period": "Diurno",
-      "course": {
-        "id": 4,
-        "name": "ADM"
-      }
+      "course": 4
     }
   ],
   "courses": [

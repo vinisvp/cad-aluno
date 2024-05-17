@@ -4,6 +4,7 @@ import { Student } from '../student';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StudentService } from '../student.service';
 import { Course } from '../course';
+import { Period } from '../period';
 
 @Component({
   selector: 'app-students',
@@ -13,6 +14,7 @@ import { Course } from '../course';
 export class StudentsComponent implements OnInit {
   students: Student[] = [];
   courses: Course[] = [];
+  periods = Object.values(Period)
   studentFormGroup: FormGroup;
   isEditing: boolean = false;
   submitted: boolean = false;
@@ -24,7 +26,7 @@ export class StudentsComponent implements OnInit {
     this.studentFormGroup = formBuilder.group({
       id:[''],
       name:['', [Validators.minLength(3), Validators.required]],
-      active:['true'],
+      active:[true],
       period:['', [Validators.required]],
       course:['', [Validators.required]]
     });
@@ -40,6 +42,10 @@ export class StudentsComponent implements OnInit {
     this.courseService.getCourses().subscribe({
       next: data => this.courses = data
     });
+  }
+
+  getCourse(id: number) : Course | undefined{
+    return this.courses.find(c => c.id == id);
   }
 
   ngOnInit(): void {

@@ -1,10 +1,10 @@
-import { Course } from "./course";
+import { Period } from "./period";
 
 export interface Student
 {
   id: number;
   name: String;
   active: boolean;
-  period: String;
-  course: Course;
+  period: Period;
+  course: number;
 }

@@ -17,22 +17,10 @@
         Ativo
       </label>
     </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" value="Diurno" formControlName="period" id="diurno" checked>
+    <div *ngFor="let period of periods" class="form-check">
+      <input class="form-check-input" type="radio" [value]="period" formControlName="period" id="diurno" checked>
       <label class="form-check-label" for="diurno">
-        Diurno
-      </label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" value="Vespertino" formControlName="period" id="vespertino">
-      <label class="form-check-label" for="vespertino">
-        Vespertino
-      </label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" value="Noturno" formControlName="period" id="noturno">
-      <label class="form-check-label" for="noturno">
-        Noturno
+        {{period}}
       </label>
     </div>
     <small *ngIf="submitted && period.hasError('required')" class="text-danger">É necessário um periodo!</small>
@@ -43,7 +31,7 @@
               aria-label="Default select example"
               formControlName="course"
               [compareWith]="compareCourses">
-        <option *ngFor="let course of courses" [ngValue]="course">{{course.name}}</option>
+        <option *ngFor="let course of courses" [ngValue]="course.id">{{course.name}}</option>
       </select>
       <small *ngIf="submitted && course.hasError('required')" class="text-danger">O curso é requirido!</small>
     </div>
@@ -72,7 +60,7 @@
           <td *ngIf="s.active; else elseBlock">SIM</td>
           <ng-template #elseBlock><td>NÃO</td></ng-template>
           <td>{{s.period}}</td>
-          <td>{{s.course.name}}</td>
+          <td>{{getCourse(s.course)?.name}}</td>
           <td class="text-center">
             <button type="button" class="btn btn-primary me-3" (click)="update(s)">Editar</button>
             <button type="button" class="btn btn-danger" (click)="delete(s)">Excluir</button>
